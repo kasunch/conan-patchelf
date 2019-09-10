@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from conans import ConanFile, AutoToolsBuildEnvironment, tools
+from conans import ConanFile, CMake, tools
 import os
 import shutil
 
@@ -12,7 +12,8 @@ class PatchelfConan(ConanFile):
     homepage = "https://nixos.org/patchelf.html"
     author = "Morris Hafner"
     license = "MIT"
-    exports = ["LICENSE.md"]
+    exports = "LICENSE.md"
+    exports_sources = "CMakeLists.txt"
     settings = "os", "os_build", "arch", "arch_build"
 
     scm = {
@@ -21,22 +22,20 @@ class PatchelfConan(ConanFile):
         "revision": version
     }
 
-    autotools = None
-    def configure_autotools(self):
-        if not self.autotools:
-            self.run("autoreconf -fiv", win_bash=tools.os_info.is_windows)
-            self.autotools = AutoToolsBuildEnvironment(
-                self, win_bash=tools.os_info.is_windows)
-            self.autotools.configure()
-        return self.autotools
+    cmake = None
+    def configure_cmake(self):
+        if not self.cmake:
+            self.cmake = CMake(self)
+            self.cmake.configure()
+        return self.cmake
 
     def build(self):
-        autotools = self.configure_autotools()
-        autotools.make()
+        cmake = self.configure_cmake()
+        cmake.build()
 
     def package(self):
-        autotools = self.configure_autotools()
-        autotools.install()
+        cmake = self.configure_cmake()
+        cmake.install()
 
     def package_info(self):
         self.env_info.PATH.append(os.path.join(self.package_folder, "bin"))
