@@ -12,7 +12,7 @@ extends:
     conanLoginUsername: $(CONAN_LOGIN_USERNAME)
     conanPassword: $(CONAN_PASSWORD)
     enableAppleClangBuilds: true
-    enableVsBuilds: true
+    enableVsBuilds: false
     enableLinuxGCCBuilds: true
     # Common build settings
     conanArchs: "x86_64"
@@ -20,9 +20,6 @@ extends:
     conanStableBranchPattern: "stable/*"
     # GCC specific
     linuxGCCVersions: "7"
-    # Visual Studio specific
-    vsVersions: ""
-    conanVsRuntimes: ""
     # Apple clang specific
     appleClangVersions: "10"
     # CI specific settings
