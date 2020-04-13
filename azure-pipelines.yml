@@ -1,0 +1,30 @@
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      name: kasunch/conan-templates
+      ref: kasun
+      endpoint: kasunch
+
+extends:
+  template: .ci/azure.yml@templates
+  parameters:
+    conanLoginUsername: $(CONAN_LOGIN_USERNAME)
+    conanPassword: $(CONAN_PASSWORD)
+    enableAppleClangBuilds: true
+    enableVsBuilds: true
+    enableLinuxGCCBuilds: true
+    # Common build settings
+    conanArchs: "x86_64"
+    conanBuildTypes: "Release"
+    conanStableBranchPattern: "stable/*"
+    # GCC specific
+    linuxGCCVersions: "7"
+    # Visual Studio specific
+    vsVersions: "16"
+    conanVsRuntimes: "MD"
+    # Apple clang specific
+    appleClangVersions: "10"
+    # CI specific settings
+    splitByBuildTypes: "true"
+    requireMoreDiskSpace: "true"
