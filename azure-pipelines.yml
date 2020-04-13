@@ -21,8 +21,8 @@ extends:
     # GCC specific
     linuxGCCVersions: "7"
     # Visual Studio specific
-    vsVersions: "16"
-    conanVsRuntimes: "MD"
+    #vsVersions: "16"
+    #conanVsRuntimes: "MD"
     # Apple clang specific
     appleClangVersions: "10"
     # CI specific settings
